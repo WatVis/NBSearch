@@ -1,11 +1,12 @@
 # NBSearch
 
 *NBSearch* is a system that supports semantic code search in Jupyter Notebook collections and interactive visual exploration of search results. Details about the system can be found in the following publication: 
+
 >Xingjun Li, Yuanxin Wang, Hong Wang, Yang Wang, and Jian Zhao. [NBSearch: Semantic Search and Visual Exploration ofComputational Notebooks.](https://www.jeffjianzhao.com/papers/nbsearch.pdf) In Proceedings of the ACM SIGCHI Conference on Human Factors in Computing Systems, 2021. 
 
 A video demo of NBSearch can be viewed [here](https://youtu.be/wNSbivrYc0Y).
 
-This repo corresponds the backend search engine of NBSearch. `end2end/` includes the Python code for training and testing the models for the search engine. `exploration/` includes the Jupyter Notebooks for some exploratory analysis and usages of the trained models.
+This repo corresponds to building the backend search engine of NBSearch. `end2end/` includes the Python code for training and testing the models for the search engine. `exploration/` includes the Jupyter Notebooks for some exploratory analysis and usages of the trained models.
 
 ## Dataset
 
