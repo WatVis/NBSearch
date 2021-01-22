@@ -6,7 +6,7 @@
 
 A video demo of NBSearch can be viewed [here](https://youtu.be/wNSbivrYc0Y).
 
-This repo corresponds to building the backend search engine of NBSearch. `end2end/` includes the Python code for training and testing the models for the search engine. `exploration/` includes the Jupyter Notebooks for some exploratory analysis and usages of the trained models. `data/` contains some of the pretrained models.
+This repo corresponds to building the backend search engine of NBSearch. `end2end/` includes the Python code for training and testing the models for the search engine. `data/` contains some of the pretrained models.
 
 ## Dataset
 
