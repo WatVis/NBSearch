@@ -26,7 +26,7 @@ python main.py
 
 ### Preprocess Text
 
-preprocessing('data/path')
+preprocessing('/data_path')
 
 ### Train and Test Models
 
