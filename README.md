@@ -55,4 +55,4 @@ model.predict_seq2seq_model(filename='/data/final_comments.csv')
 ### Make Data Ready for the Front-end(Markdown Version).
 
 Run notebook `end2end/generate_markdown.ipynb`.
-Front-end(markdown version) is requesting directory 'resource' generated from this step.
+Front-end(markdown version) is requesting directory `resource` generated from this step.
