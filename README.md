@@ -55,7 +55,8 @@ model.predict_seq2seq_model(filename='/data/final_comments.csv')
 
 
 ## Starting the Frontend Interface
-The NBSearch frontend consists of a Search Bar (top) that accepts a user’s queries in natural language or code keywords; a Search Result Panel (left) that displays a ranked list of relevant cells to the query; a Notebook Relationship Panel (middle) that visualizes intra- and inter-notebook relationships of cells based on the search result; and a Notebook Panel (right) that shows the entire notebook containing the selected cell in the search results.
+
+The NBSearch frontend consists of a Search Bar (top) that accepts a user’s queries in natural language or code keywords; a Search Result Panel (left) that displays a ranked list of relevant cells to the query; a Notebook Relationship Panel (middle) that visualizes intra- and inter-notebook relationships of cells based on the search result; and a Notebook Panel (right) that shows the entire notebook containing the selected cell in the search results. We have enhanced our frontend interface design since our CHI publication.
 
 ![](frontend_ui.png)
 
@@ -76,4 +77,4 @@ pip install -r requirements.txt
 
 python app.py
 
-Go to: http://localhost:5000/
+Go to: http://127.0.0.1:5000/
