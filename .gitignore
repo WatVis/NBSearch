@@ -1,1 +1,6 @@
 .DS_Store
+
+exploration/
+resource/
+venv/
+__pycache__/

@@ -1,0 +1,305 @@
+/* read this file along with search.html for class names */
+body {
+    background-color:rgb(242, 242, 242);
+    overflow: visible;
+    width: 1400px;
+    margin: auto;
+}
+
+#search_area {
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 60px;
+    margin: 0px;
+    min-width: 1400px;
+}
+
+#a_form {
+    width:100%;
+    margin: 0 20px;
+    min-width: 1200px;
+}
+
+.range_description {
+    position: relative;
+    margin-right:0.5em;
+    margin-left:0.5em;
+
+    color: white;
+}
+
+.markdown_impact_description{
+    margin-right:0.5em;
+    margin-left:0.5em;
+
+
+    color: white;
+}
+
+.cell_description {
+    position: relative;;
+    left: 40px;
+}
+
+.input-group {
+  border: 2px solid;
+}
+
+.select_notebooks {
+    border: 2px solid;
+    border-color: rgb(160, 160, 160);
+}
+
+#nbk_results_count, #mkd_in {
+    background: #d3d3d3;
+    opacity: 0.7;
+}
+#nbk_results_count:hover, #mkd_in:hover {
+  opacity: 1;
+}
+
+#up_down_cells {
+    position: relative;
+    left: 45px;
+}
+
+#current_search {
+    margin-left: 0%;
+    width: 35%;
+}
+
+#the_submit_button {
+    width:5%;
+}
+
+
+
+#show_area {
+    min-width: 1400px;
+    height: 90%; 
+    position: absolute;
+    top: 60px;
+}
+
+#list_view {
+    width: 520px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 4px;
+}
+
+#list_view_body {
+    overflow-y: auto;
+}
+
+
+#alignment_view {
+    width: 315px;
+    height: 100%; 
+    position: absolute;
+    top: 0px;
+    left: 522.5px;
+    border-radius: 4px;
+}
+
+#alignment_view_body {
+    overflow-y: auto;
+}
+
+#alignment_svg {
+    overflow: scroll;
+}
+
+#detail_view {
+    width: 560px;
+    height: 100%; 
+    position: absolute;
+    top: 0px;
+    left: 840px;
+    overflow-y: auto;
+    border-radius: 4px;
+}
+
+#detail_view_body {
+}
+
+/* this defines our left_arrow */
+#detail_left_arrow {
+    left: 520px;
+    font-weight: bold;
+}
+
+/* Not useful anymore, originally for switching between DOTS_VIEW and LINES_VIEW */
+#control {
+    font-size: 10px;
+    position: absolute;
+    top: -35px;
+    left: 510px;
+}
+
+/* using div to mimic normal textarea behaviour */
+.fake_textarea {
+    -moz-appearance: textfield-multiline;
+    overflow: hidden;
+    white-space: pre;
+}
+
+/* In list_view. A list_cell contains a fake_textarea & list_view_text */
+/* i.e. that div has 2 classes */
+.list_cell {
+    left: 0px;
+    margin-bottom: 5px;
+}
+
+.list_view_text {
+    width: 460px;
+    font-size: 11px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid;
+}
+
+/* In detail_view, a the_containers wraps 2 things */
+/*  1. progress_bar */
+/*  2. a div which has 2 classes: detail_view_text & fake_textarea */
+.the_containers {
+    width: 505px;
+    border-radius: 8px;
+    position: relative;
+    background-color: rgb(255, 255, 255);
+}
+
+.progress_bar {
+    height: 10px;
+    display: block;
+    border-radius: 8px;
+}
+
+.tag_container {
+    display: block;
+    background-color: rgb(242, 242, 242);
+}
+
+
+.word_tag {
+    display: inline-block;
+    border-radius: 4px;
+    font-size: 10px;
+    padding: 1px;
+    margin: 1px;
+    border: 1px solid rgb(242, 242, 242);
+}
+
+.detail_view_text {
+    width: 500px;
+    font-size: 11px;
+    background-color: rgb(255,255,255);
+    border-radius: 10px;
+}
+
+
+/* For syntax highlighting, check https://highlightjs.org for more details */
+pre {
+    margin: 0px;
+    overflow: hidden;
+}
+
+
+.menu_flex_box {
+    display: flex;
+    flex: auto;
+    justify-content:flex-end;
+    margin-right: 3%;
+}
+.menu_flex_item {
+    margin-left: 20px;
+    padding: 2px;
+    border-radius:5px;
+
+}
+
+.markdown_sig_div {
+    margin-left: 2%;
+
+    border: 2px solid;
+    border-color: rgb(160, 160, 160);
+}
+
+
+/* slider style goes here: */
+.slidecontainer {
+    position: relative;
+    font-size: 12px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    margin-top:5px; /* Adjust this if it doesn't look good */
+    width: 125px;
+    height: 15px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: black;
+    cursor: pointer;
+}
+
+
+#shared_var_label {
+  font-size:120%;
+  float: left;
+  color: white;
+  margin-right: 2px;
+}
+
+output#varOutputId {
+  font-size:120%;
+  color: white;
+}
+
+/* end of slider style */
+
+
+/* this is the link in alignment_view */
+path.arrow_link {
+    fill: none;
+    stroke: black;
+    stroke-width: 1px;
+    opacity: 0.4;
+}
+
+#tst {
+    position:absolute;
+    top:800px;
+}
+
+.footer {
+    background-color:#e1e1e1;
+    position: fixed;
+    padding: 0.7em;
+    padding-right:1em;
+    width: 100%;
+    left: 0;
+    bottom: 0px;
+    text-align:right;
+    margin-top:150px;
+    scroll-padding: 50px 0 0 50px;
+
+}

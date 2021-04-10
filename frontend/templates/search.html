@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>NBSearch</title>
+  <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.0/styles/tomorrow.min.css">
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+
+
+<body class="p-3 mb-2 text-black">
+  <div id="search_area" class="row align-self-center bg-dark text-white">
+    <!-- This form tag is the entire bar on the top -->
+    <form class="form-inline d-flex md-form form-sm active-cyan-2" method="POST" id="a_form" name="Form"
+      action={{url_for('find_query')}}>
+      <input type="text" placeholder="Search.." id="current_search" name="search_query" class="form-control mr-sm-2"
+        aria-label="Search" required />
+
+      <button type="submit" id="the_submit_button" class="btn btn-light">Submit</button>
+
+
+
+      <div class="menu_flex_box">
+        <div class="markdown_sig_div input-group menu_flex_item">
+          <div class='input-group-prepend'>
+            <label class="markdown_impact_description">Markdown Impact</label>
+          </div>
+          <select class="form-select" name="mkd_significance" id="mkd_in">
+            <option id="option0">0.00</option>
+            <option id="option10">0.10</option>
+            <option id="option20">0.20</option>
+            <option id="option30">0.30</option>
+            <option id="option40">0.40</option>
+            <option id="option50" selected>0.50</option>
+            <option id="option60">0.60</option>
+            <option id="option70">0.70</option>
+            <option id="option80">0.80</option>
+            <option id="option90">0.90</option>
+
+          </select>
+        </div>
+        <div class='input-group select_notebooks menu_flex_item'>
+          <div class='input-group-prepend'>
+            <label for="nbk_results_count" class="range_description" id="range_label">Returned Notebooks</label>
+          </div>
+
+          <select class="form-select" name="nbk_results_count" id="nbk_results_count" required>
+            <option id="option_5">5</option>
+            <option id="option_10" selected>10</option>
+            <option id="option_15">15</option>
+            <option id="option_20">20</option>
+          </select>
+        </div>
+
+
+        <!-- This slider is rendered after submitting searching request, used for controlling
+                number of shared variables -->
+        <div class="slidecontainer menu_flex_item">
+          <input type="range" name="varInputName" id="myRange" class="slider" value="2" min="1"
+            onchange="filter_arrow()" max="10" oninput="varOutputId.value = myRange.value">
+          <div>
+            <label for="varOutputName" id="shared_var_label">Shared variables: </label>
+            <output name="varOutputName" id="varOutputId"> 2</output>
+          </div>
+        </div>
+
+      </div>
+
+    </form>
+
+    <script src="{{ url_for('static', filename='functions/helpers.js') }}"></script>
+
+
+
+  </div>
+  {% if show_it == 1 %}
+  <!-- Show area contains our 3 views -->
+  <div id="show_area">
+    <script>
+      //   show the currect search query
+      the_query = {{ the_query | tojson | safe }};
+      d3.select('#current_search')
+        // Set previous value
+        .attr('value', the_query)
+        .attr('placeholder', the_query);
+      //  show previously set markdown impact
+      mkd_prev_value = parseInt({{ prev_beta| tojson | safe}});
+      //  show current returned number of notebooks
+      returned_nbs = parseInt({{ returned_variables| tojson | safe}});
+
+
+      var color = [
+        '#8dd3c7', '#F7DC6F',
+        '#bebada', '#fb8072',
+        '#80b1d3', '#fdb462',
+        '#b3de69', '#fccde5',
+        '#dfc09f', '#bc80bd',
+        '#ccebc5', '#ffed6f',
+        "#1f77b4", "#aec7e8",
+        "#ff7f0e", "#ffbb78",
+        "#2ca02c", "#98df8a",
+        "#d62728", "#ff9896",
+        "#9467bd", "#c5b0d5",
+        "#8c564b", "#c49c94",
+        "#e377c2", "#f7b6d2",
+        "#7f7f7f", "#c7c7c7",
+        "#bcbd22", "#dbdb8d",
+        "#17becf", "#9edae5"
+      ]
+      fc = {{ data | tojson | safe }};
+      console.log(fc);
+
+
+      // this is an 2-d array with objects {conc_cell and id}
+      details_data = {{ details | tojson | safe }};
+      console.log(details_data);
+
+      // this is an 2-d array with cosine distances(numbers)
+      emb_data = {{ emb | tojson | safe }};
+
+      //  this is an 2-d array of object/Nones
+      align_path_data = {{ align_paths | tojson | safe }};
+      console.log(align_path_data);
+      //  1-d array of positions for starting points
+      align_start_pts = {{ align_start | tojson | safe }};
+
+      //  2-d array of positions for middle points
+      align_middle_pts = {{ align_mid | tojson | safe }};
+      console.log(align_middle_pts);
+
+
+      align_markdown_path_data = {{ mkd_path | tojson | safe }};
+      console.log(align_markdown_path_data);
+
+      //  this is an 2-d array of object/Nones
+      unalign_path_data = {{ unalign_paths | tojson | safe }};
+
+
+      //  1-d array of positions for starting points
+      unalign_start_pts = {{ unalign_start | tojson | safe }};
+
+      //  2-d array of positions for middle points #}
+      unalign_middle_pts = {{ unalign_mid | tojson | safe }};
+      console.log(unalign_middle_pts);
+
+
+
+      //   2-d array of (list of objects from a path)
+      shift_arrow_path = {{ shift_arrow | tojson | safe }};
+      console.log(shift_arrow_path);
+
+
+      //   2-d array of (list of objects from a path)
+      unshift_arrow_path = {{ unshift_arrow | tojson | safe }};
+      console.log(unshift_arrow_path);
+
+
+      //   2-d array of (list of variable names)
+      all_variable_names = {{ all_variables | tojson | safe }};
+      console.log(all_variable_names);
+
+
+      real_index = {{ actual_index | tojson | safe }};
+      console.log(real_index);
+
+    </script>
+    <script src="{{ url_for('static', filename='functions/preprocess.js') }}">
+    </script>
+
+
+
+    <!-- List view -->
+    <div id="list_view" class="card bg-transparent list-group list-group-flush">
+      <div id="list_view_body" class="card-body">
+        <script src="{{ url_for('static', filename='functions/list_view.js') }}">
+        </script>
+      </div>
+    </div>
+
+    <!-- Alignment view -->
+    <div id="alignment_view" class="card bg-transparent list-group list-group-flush">
+      <div id="alignment_view_body" class="card-body">
+        <svg id="alignment_svg">
+          <g id="drawing">
+            <g class="line_layer">
+            </g>
+            <g class="cell_layer">
+            </g>
+            <g class="arrow_layer">
+            </g>
+          </g>
+        </svg>
+        <script src="{{ url_for('static', filename='functions/alignment_handler.js') }}">
+        </script>
+        <script src="{{ url_for('static', filename='functions/alignment.js') }}">
+        </script>
+      </div>
+    </div>
+
+    <!-- Detail view -->
+    <div id="detail_view" class="card bg-transparent list-group list-group-flush">
+      <div id="detail_view_body" class="card-body">
+
+      </div>
+      <div id="arrow">
+      </div>
+    </div>
+
+
+    <!-- For switching between Dots_view and Lines_view. Not rendering, but still providing
+          functionality to other parts, do not remove this component  -->
+    <div id="control" class="btn-group btn-group-toggle" data-toggle="buttons" style="display: none;">
+      <label class="btn btn-dark btn-sm active">
+        <input type="radio" name="options" id="button_lines" autocomplete="off" checked onclick="unshift_alignment()">
+        Lines
+      </label>
+      <label class="btn btn-dark btn-sm">
+        <input type="radio" name="options" id="button_dots" autocomplete="off" onclick="shift_alignment()"> Dots
+      </label>
+    </div>
+
+  </div>
+  {% endif %}
+
+
+  <div class="footer">
+    Copyright 2021 WatVis, University of Waterloo.
+    Contributed by Xingjun Li, Yuanxin Wang, Justin Leung, and Jian Zhao.
+</div>
+
+</body>
+
+
+
+</html>
