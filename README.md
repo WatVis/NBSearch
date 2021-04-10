@@ -62,7 +62,7 @@ The NBSearch frontend consists of a Search Bar (top) that accepts a user’s que
 
 ### Prepare Data Files
 
-Run the notebook `prepare_frontend.ipynb` which generates the necessary data files and copies them to `resource`.
+Run the notebook `prepare_frontend.ipynb` which generates the necessary data files and copies them to `frontend/resource`.
 
 ### Setup the Environment
 
